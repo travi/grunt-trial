@@ -1,5 +1,5 @@
 # grunt-trial
-
+[![Built with Grunt](https://cdn.gruntjs.com/builtwith.png)](http://gruntjs.com/)
 > Learning to author a grunt plugin
 
 ## Getting Started
