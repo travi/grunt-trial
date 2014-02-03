@@ -1,8 +1,6 @@
 'use strict';
 
-var grunt = require('grunt'),
-    yaml = require('js-yaml'),
-    fs   = require('fs');
+var grunt = require('grunt');
 
 /*
  ======== A Handy Little Nodeunit Reference ========
