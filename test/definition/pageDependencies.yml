@@ -2,3 +2,7 @@ default:
   js:
     - file1.js
     - file2.js
+page1:
+  js:
+    - file1.js
+    - file3.js

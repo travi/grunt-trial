@@ -8,37 +8,46 @@
 
 'use strict';
 
-module.exports = function(grunt) {
+module.exports = function (grunt) {
 
     var yaml = require('js-yaml'),
         fs = require('fs');
 
-  // Please see the Grunt documentation for more information regarding task
-  // creation: http://gruntjs.com/creating-tasks
+    // Please see the Grunt documentation for more information regarding task
+    // creation: http://gruntjs.com/creating-tasks
 
-  grunt.registerMultiTask('trial', 'The best Grunt plugin ever.', function() {
-    // Merge task-specific and/or target-specific options with these defaults.
-    var options = this.options({
-      punctuation: '.',
-      separator: ', '
-    });
+    function concatenateContents(pageDependencies, resourcesRoot) {
+        var src = '';
 
-    // Iterate over all specified file groups.
-//    this.files.forEach(function(f) {
+        grunt.util._.each(pageDependencies['js'], function (file) {
+            src += grunt.file.read(resourcesRoot + file);
+        });
+        return src;
+    }
 
-      var f = {
-              dest: 'tmp/default.js'
-          },
-          src = '';
+    grunt.registerMultiTask('trial', 'The best Grunt plugin ever.', function () {
+        // Merge task-specific and/or target-specific options with these defaults.
+        var options = this.options({
+                punctuation: '.',
+                separator: ', '
+            }),
+            pageName;
 
-      var dependencyMap = yaml.safeLoad(fs.readFileSync(options.dependencyFile, 'utf8'));
+        var dependencyMap = yaml.safeLoad(fs.readFileSync(options.dependencyFile, 'utf8'));
 
-      var defaultDeps = dependencyMap['default'];
-      grunt.util._.each(defaultDeps['js'], function (file) {
-          src += grunt.file.read(options.resourcesRoot + file);
-      });
+        for (pageName in dependencyMap) {
+            if (dependencyMap.hasOwnProperty(pageName)) {
+                var resourcesRoot = options.resourcesRoot,
+                    pageDependencies = dependencyMap[pageName];
 
-      // Concat specified files.
+                grunt.file.write(
+                    'tmp/' + pageName + '.js',
+                    concatenateContents(pageDependencies, resourcesRoot)
+                );
+                grunt.log.writeln('File "' + 'tmp/' + pageName + '.js' + '" created.');
+            }
+        }
+        // Concat specified files.
 //      var src = f.src.filter(function(filepath) {
 //        // Warn on and remove invalid source files (if nonull was set).
 //        if (!grunt.file.exists(filepath)) {
@@ -55,11 +64,6 @@ module.exports = function(grunt) {
 //      // Handle options.
 //      src += options.punctuation;
 
-      // Write the destination file.
-      grunt.file.write(f.dest, src);
-
-      // Print a success message.
-      grunt.log.writeln('File "' + f.dest + '" created.');
     });
 //  });
 

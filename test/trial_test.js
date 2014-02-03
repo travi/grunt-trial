@@ -29,29 +29,15 @@ exports.trial = {
         // setup here if necessary
         done();
     },
-//
-//    default_options: function (test) {
-//        test.expect(1);
-//
-//        var actual = grunt.file.read('tmp/default_options'),
-//            expected = grunt.file.read('test/expected/default_options');
-//
-//        test.equal(actual, expected, 'should describe what the default behavior is.');
-//        test.done();
-//    },
-//
-//    custom_options: function (test) {
-//        test.expect(1);
-//
-//        var actual = grunt.file.read('tmp/custom_options'),
-//            expected = grunt.file.read('test/expected/custom_options');
-//
-//        test.equal(actual, expected, 'should describe what the custom option(s) behavior is.');
-//        test.done();
-//    },
 
-    'test that yaml file is read properly': function (test) {
+    'test that default js file built from yaml definition': function (test) {
         test.equal('file1file2', grunt.file.read('tmp/default.js'));
+        test.done();
+    },
+
+    'test that page1 js file built from yaml definition': function (test) {
+        test.equal('file1file3', grunt.file.read('tmp/page1.js'));
+
         test.done();
     }
 };
