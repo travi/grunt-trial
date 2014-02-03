@@ -1,5 +1,7 @@
 # grunt-trial
 [![Built with Grunt](https://cdn.gruntjs.com/builtwith.png)](http://gruntjs.com/)
+[![Build Status](https://travis-ci.org/travi/grunt-trial.png?branch=master)](https://travis-ci.org/travi/grunt-trial)
+
 > Learning to author a grunt plugin
 
 ## Getting Started
