@@ -38,9 +38,5 @@
   },
   "keywords": [
     "gruntplugin"
-  ],
-  "dependencies": {
-    "js-yaml": "~3.0.1",
-    "concat-files": "~0.1.0"
-  }
+  ]
 }

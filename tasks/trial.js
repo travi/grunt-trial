@@ -10,18 +10,13 @@
 
 module.exports = function (grunt) {
 
-    var yaml = require('js-yaml'),
-        fs = require('fs');
-
-    // Please see the Grunt documentation for more information regarding task
-    // creation: http://gruntjs.com/creating-tasks
-
     function concatenateContents(pageDependencies, resourcesRoot) {
         var src = '';
 
         grunt.util._.each(pageDependencies['js'], function (file) {
             src += grunt.file.read(resourcesRoot + file);
         });
+
         return src;
     }
 
@@ -33,7 +28,7 @@ module.exports = function (grunt) {
             }),
             pageName;
 
-        var dependencyMap = yaml.safeLoad(fs.readFileSync(options.dependencyFile, 'utf8'));
+        var dependencyMap = grunt.file.readYAML(options.dependencyFile);
 
         for (pageName in dependencyMap) {
             if (dependencyMap.hasOwnProperty(pageName)) {
@@ -47,6 +42,7 @@ module.exports = function (grunt) {
                 grunt.log.writeln('File "' + 'tmp/' + pageName + '.js' + '" created.');
             }
         }
+
         // Concat specified files.
 //      var src = f.src.filter(function(filepath) {
 //        // Warn on and remove invalid source files (if nonull was set).
@@ -65,6 +61,5 @@ module.exports = function (grunt) {
 //      src += options.punctuation;
 
     });
-//  });
 
 };
