@@ -10,14 +10,22 @@
 
 module.exports = function (grunt) {
 
-    function concatenateContents(pageDependencies, resourcesRoot) {
+    function concatenateContents(pageDependencies, resourcesRoot, fileType) {
         var src = '';
 
-        grunt.util._.each(pageDependencies['js'], function (file) {
+        grunt.util._.each(pageDependencies[fileType], function (file) {
             src += grunt.file.read(resourcesRoot + file);
         });
 
         return src;
+    }
+
+    function createFileFor(pageName, extension, pageDependencies, resourcesRoot) {
+        grunt.file.write(
+            'tmp/' + pageName + '.' + extension,
+            concatenateContents(pageDependencies, resourcesRoot, extension)
+        );
+        grunt.log.writeln('File "' + 'tmp/' + pageName + '.' + extension + '" created.');
     }
 
     grunt.registerMultiTask('trial', 'The best Grunt plugin ever.', function () {
@@ -35,11 +43,8 @@ module.exports = function (grunt) {
                 var resourcesRoot = options.resourcesRoot,
                     pageDependencies = dependencyMap[pageName];
 
-                grunt.file.write(
-                    'tmp/' + pageName + '.js',
-                    concatenateContents(pageDependencies, resourcesRoot)
-                );
-                grunt.log.writeln('File "' + 'tmp/' + pageName + '.js' + '" created.');
+                createFileFor(pageName, 'js', pageDependencies, resourcesRoot);
+                createFileFor(pageName, 'css', pageDependencies, resourcesRoot);
             }
         }
 

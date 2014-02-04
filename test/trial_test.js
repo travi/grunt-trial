@@ -29,13 +29,18 @@ exports.trial = {
     },
 
     'test that default js file built from yaml definition': function (test) {
-        test.equal('file1file2', grunt.file.read('tmp/default.js'));
+        test.equal('js1js2', grunt.file.read('tmp/default.js'));
         test.done();
     },
 
     'test that page1 js file built from yaml definition': function (test) {
-        test.equal('file1file3', grunt.file.read('tmp/page1.js'));
+        test.equal('js1js3', grunt.file.read('tmp/page1.js'));
 
+        test.done();
+    },
+
+    'test that default css file built from yaml definition': function (test) {
+        test.equal('css1css2', grunt.file.read('tmp/default.css'));
         test.done();
     }
 };

@@ -2,6 +2,9 @@ default:
   js:
     - file1.js
     - file2.js
+  css:
+    - file1.css
+    - file2.css
 page1:
   js:
     - file1.js
